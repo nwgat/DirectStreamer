@@ -25,6 +25,7 @@ DirectStreamer is a high-performance, containerized streaming solution designed 
 
 ## Notes
 * Very much a work in progress
+* Xiaomi TV Box S (3rd gen) needs to be set to source led in dolby vision processing
 * On my Xiaomi TV Box S (3rd Gen) dovi decoder is slightly buggy, on Dovi 7 content it switches between HDR10 or DV 7 randomly (i suspect it uses DV7 discarding to work)
 * Am not a coder, ive used Gemini AI but feel free to help improve it tho, there is a reason why ive released it under GPLv3
 
