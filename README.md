@@ -1,20 +1,29 @@
-# DirectStreamer (Server + Android TV App)
+# DirectStreamer
 
-DirectStreamer addresses the common problem of unreliable Dolby Vision and HDR10 playback on Android TV. It consists of two parts:
+DirectStreamer is a high-performance, containerized streaming solution designed for Android TV, focusing on direct-play playback with enhanced HDR/Dolby Vision support and automated deployment.
 
-*   **Backend Server:** Serves a list of the latest media files, sorted by date added.
-*   **Android TV App:** A minimal client application for Android TV that handles playback control (Play/Pause).
+## ✨ Key Features
 
-The core principle is to minimize potential interference with HDR/DV signals. Our hypothesis (based on testing) is that on-screen elements – overlays, OSDs, and other visual enhancements – often cause issues.
+*   **Direct Play Architecture:** Minimal overhead backend serving media files directly to the client.
+*   **Enhanced HDR & Dolby Vision:** 
+    *   Automatic detection of HDR10, HLG, and various Dolby Vision profiles via `ffprobe`.
+    *   Custom `AmlogicDolbyVisionCodecSelector` for optimized hardware decoding on Android TV.
+    *   Enforced HDR fallback prevention to ensure consistent display formats.
+*   **LG WebOS Integration:** Built-in monitoring for LG OLED TVs to track HDMI input formats and signal changes in real-time.
+*   **Automated Deployment:** Seamless "One-Click" build and install process using Docker and ADB (Android Debug Bridge).
+*   **Smart Playback:**
+    *   Throttled streaming to optimize network utilization.
+    *   Smart Seek functionality for smooth navigation.
+    *   Real-time subtitle and audio track cycling. (up dpad to cycle audio  track, down dpad to cycle subtitles, left/right dpad to seek)
+*   **Developer-Friendly:** 
+    *   Integrated Logcat streaming directly to your Docker console.
+    *   Persistent storage for TV authentication keys and configuration.
+ 
+## Notes
+* very much a work in progress
+* *   * On my Xiaomi TV Box S (3rd Gen) dovi decoder is slightly buggy, on Dovi 7 content it switches between HDR10 or DV 7 randomly (i suspect it uses DV7 discarding to work)
+* am not a coder, ive used Gemini AI, feel free to help improve it tho
 
-**Features:**
+## 🚀 Getting Started
 
-*   **Prioritizes HDR/Dolby Vision:** Engineered for consistent, high-quality HDR/DV playback.
-*   **Extremely Minimalist App:** The Android TV app includes only the essential "Play" and "Pause" controls.
-*   **Recent Files Focused (Server):** The server serves a list of recently added files for quick access.
-*   **Hardware Tested:** Xiaomi TV Box S 3rd Gen (Amlogic S905X5M)
-
-**Important Considerations:**
-
-*   **Not Feature-Rich:** DirectStreamer is *not* intended to be a full-featured media center experience. It's a focused solution for those prioritizing HDR/DV playback stability.
-*   **Requires Both Components:** You need to deploy both the server and install the Android TV app for this to work.
+todo
