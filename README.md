@@ -18,9 +18,9 @@ DirectStreamer is a high-performance, containerized streaming solution designed 
     *   Real-time subtitle and audio track cycling. (up dpad to cycle audio  track, down dpad to cycle subtitles, left/right dpad to seek)
 *   **Automated Deployment:** Seamless "One-Click" build and install process using Docker and ADB (Android Debug Bridge).
 *   **Developer-Friendly:**
-    *   Automatic detection of HDR10, HLG, and various Dolby Vision profiles via `ffprobe` to docker logs
-    *   Built-in monitoring for LG OLED TVs to track HDMI input formats and signal changes in real-time to docker logs
-    *   Integrated Logcat streaming directly to your Docker console.
+    *   Automatic detection of HDR10, HLG, and various Dolby Vision profiles via `ffprobe` in docker logs
+    *   Built-in monitoring for LG OLED TVs to track HDMI input formats and signal changes in real-time in docker logs
+    *   Integrated Logcat streaming directly to your Docker logs
     *   Persistent storage for TV authentication keys and configuration.
 
 ## Notes
