@@ -32,5 +32,13 @@ DirectStreamer is a high-performance, containerized streaming solution designed 
 
 todo
 
+## todolist
+
+- [ ] fix hdr detection to include full profile names (dv07.06 etc) in docker logs
+- [ ] need to fix that some files show blackscreen on first play but correct on second
+- [ ] audio transcoding on the backend to improve support on devices without certain codecs
+- [x] hope stability works out with high bitrate files
+      
+
 ## ❤ Made with these Projects
-Built with Alpine, Golang, Docker, ffmpeg, 
+Built with Alpine, Golang, Docker, ffmpeg, android sdk 
