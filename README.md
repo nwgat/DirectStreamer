@@ -30,7 +30,15 @@ DirectStreamer is a high-performance, containerized streaming solution designed 
 
 ## 🚀 Getting Started
 
-todo
+on your android tv device
+Enable ADB debugging on your Android TV Device
+
+on your server
+* `apt-get install docker`
+* `git clone https://github.com/nwgat/DirectStreamer && cd DirectStreamer`
+* `nano .env`
+* change `TV_IP=YourAndroidTV-IP`
+* change `BACKEND_IP=to-your-server-ip`
 
 ## todolist
 
