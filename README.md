@@ -31,22 +31,23 @@ DirectStreamer is a high-performance, containerized streaming solution designed 
 ## 🚀 Getting Started
 
 on your android tv device
-Enable ADB debugging on your Android TV Device
+* Enable ADB debugging on your Android TV Device
 
 on your server
-* `apt-get install docker`
+* `apt-get install docker.io docker-compose-v2` (Ubuntu)
 * `git clone https://github.com/nwgat/DirectStreamer && cd DirectStreamer`
 * `nano .env`
 * change `TV_IP=YourAndroidTV-IP`
 * change `BACKEND_IP=to-your-server-ip`
 
-## todolist
 
-- [ ] fix hdr detection to include full profile names (dv07.06 etc) in docker logs
-- [ ] need to fix that some files show blackscreen on first play but correct on second
-- [ ] audio transcoding on the backend to improve support on devices without certain codecs
+## todolist
+- [ ] release the code
 - [x] hope stability works out with high bitrate files
-      
+- [ ] Web Interface for backend with playback/browse
+- [ ] fix hdr detection to include full profile names (dv07.06 etc) in docker logs
+- [ ] some files show blackscreen on first play then correctly play on second
+- [ ] audio transcoding on the backend to improve support on devices without certain codecs
 
 ## ❤ Made with these Projects
 Built with Alpine, Golang, Docker, ffmpeg, android sdk 
