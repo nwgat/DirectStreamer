@@ -7,12 +7,11 @@ DirectStreamer is a high-performance, containerized streaming solution designed 
 *   **Direct Play Architecture:** Minimal overhead backend serving media files directly to the client.
 *   **Miminalistic Interface**
     *   Only show a list of files sorted by latest
-    *   Minimalistic Player UI      
+    *   Minimalistic Player UI
+    *   Direct Play Backend     
 *   **Enhanced HDR & Dolby Vision:** 
-    *   Amlogic optimized hardware decoding on Android TV.
     *   Detect DoVi/HDR10 in media files and automaticly select correct decoder (bypasses amlogic)
-    *   
-    *   Direct Play Backend
+    *   Disable Dovi 07.06 profiles and force them to HDR10
 *   **Smart Playback:**
     *   Throttled streaming to optimize network utilization.
     *   Smart Seek functionality for smooth navigation. (, left/right dpad to seek)
