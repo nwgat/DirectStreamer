@@ -9,26 +9,29 @@ DirectStreamer is a high-performance, containerized streaming solution designed 
     *   Only show a list of files sorted by latest
     *   Minimalistic Player UI      
 *   **Enhanced HDR & Dolby Vision:** 
-    *   Custom `AmlogicDolbyVisionCodecSelector` for optimized hardware decoding on Android TV.
-    *   Enforced HDR fallback prevention to ensure consistent display formats.
+    *   Amlogic optimized hardware decoding on Android TV.
+    *   Detect DoVi/HDR10 in media files and automaticly select correct decoder (bypasses amlogic)
+    *   
     *   Direct Play Backend
 *   **Smart Playback:**
     *   Throttled streaming to optimize network utilization.
-    *   Smart Seek functionality for smooth navigation.
-    *   Real-time subtitle and audio track cycling. (up dpad to cycle audio  track, down dpad to cycle subtitles, left/right dpad to seek)
+    *   Smart Seek functionality for smooth navigation. (, left/right dpad to seek)
+    *   Real-time subtitle and audio track cycling. (up dpad to cycle audio  track, down dpad to cycle subtitles)
 *   **Automated Deployment:** Seamless "One-Click" build and install process using Docker and ADB (Android Debug Bridge).
-*   **Developer-Friendly:**
+*   **Debug Monitoring:**
     *   Automatic detection of HDR10, HLG, and various Dolby Vision profiles via `ffprobe` in docker logs
     *   Built-in monitoring for LG OLED TVs to track HDMI input formats and signal changes in real-time in docker logs
-    *   Integrated Logcat streaming directly to your Docker logs
-    *   Persistent storage for TV authentication keys and configuration.
+    *   Built-in monitoring for Logcat directly to your Docker logs
+    *   Persistent storage for TV/ADB authentication keys and configuration.
 
 ## Notes
 * Very much a work in progress
-* Xiaomi TV Box S (3rd gen) needs to be set to source led in dolby vision processing
-* On my Xiaomi TV Box S (3rd Gen) dovi decoder is slightly buggy, on Dovi 7 content it switches between HDR10 or DV 7 randomly (i suspect it uses DV7 discarding to work)
+* Mostly tested on my Xiaomi TV Box S (3rd Gen) aka Twilight 
 * Am not a coder, ive used Gemini AI but feel free to help improve it tho, there is a reason why ive released it under GPLv3
 
 ## 🚀 Getting Started
 
 todo
+
+## ❤ Made with these Projects
+Built with Alpine, Golang, Docker, ffmpeg, 
