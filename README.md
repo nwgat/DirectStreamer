@@ -38,7 +38,7 @@ on your server
 * `git clone https://github.com/nwgat/DirectStreamer && cd DirectStreamer`
 * `nano .env`
 * change `TV_IP=YourAndroidTV-IP`
-* change `BACKEND_IP=to-your-server-ip`
+* change `BACKEND_IP=DockerHost-FileServer-Here`
 * change `ADB_INSTALL=yes` to auto install on your android tv device
 
 
