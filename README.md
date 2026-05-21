@@ -48,7 +48,8 @@ on your server
 - [ ] fix hdr detection to include full profile names (dv07.06 etc) in docker logs
 - [ ] some files show blackscreen on first play then correctly play on second
 - [ ] audio transcoding on the backend to improve support on devices without certain codecs
-- [ ] OSD - for Seeking
+- [ ] More Seeking options 5min/3min/30/15/10?
+- [ ] OSD - seeking (0:23:41/1:30:34)
 - [ ] OSD - convert toast to text overlay instead
 
 ## ❤ Made with these Projects
