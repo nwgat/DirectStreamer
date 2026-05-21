@@ -31,14 +31,14 @@ DirectStreamer is a high-performance, containerized streaming solution designed 
 ## 🚀 Getting Started
 
 on your android tv device
-* Enable ADB debugging
+1. Enable ADB or MiTV adb Debugging under Developer Options, it shows up after you press about 7 times on Android TV Build in About under Settings > System > then it should show up under Settings > System or Quick Settings Menu  
 
 on your server
 * `apt-get install docker.io docker-compose-v2` (Ubuntu)
 * `git clone https://github.com/nwgat/DirectStreamer && cd DirectStreamer`
 * `nano .env`
-* change `TV_IP=YourAndroidTV-IP`
-* change `BACKEND_IP=DockerHost-FileServer-Here`
+* change `TV_IP=192.168.1.239` to your android tv device
+* change `BACKEND_IP=192.168.1.2` to your docker host machine ip
 * change `ADB_INSTALL=yes` to auto install on your android tv device
 
 
