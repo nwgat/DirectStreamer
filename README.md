@@ -50,6 +50,7 @@ on your server
 - [ ] some files show blackscreen on first play then correctly play on second
 - [ ] audio transcoding on the backend to improve support on devices without certain codecs
 - [ ] More Seeking options 5min/3min/30/15/10?
+- [ ] Remember last position
 - [ ] OSD - seeking (0:23:41/1:30:34)
 - [ ] OSD - convert toast to text overlay instead
 
