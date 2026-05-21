@@ -25,13 +25,13 @@ DirectStreamer is a high-performance, containerized streaming solution designed 
 
 ## Notes
 * Very much a work in progress
-* Mostly tested on my Xiaomi TV Box S (3rd Gen) aka Twilight 
+* Mostly tested on my [Xiaomi TV Box S (3rd Gen) aka Twilight ]([url](https://www.androidtv-guide.com/streaming-gaming/xiaomi-tv-box-s-v3/))
 * Am not a coder, ive used Gemini AI but feel free to help improve it tho, there is a reason why ive released it under GPLv3
 
 ## 🚀 Getting Started
 
 on your android tv device
-* Enable ADB debugging on your Android TV Device
+* Enable ADB debugging
 
 on your server
 * `apt-get install docker.io docker-compose-v2` (Ubuntu)
@@ -39,6 +39,7 @@ on your server
 * `nano .env`
 * change `TV_IP=YourAndroidTV-IP`
 * change `BACKEND_IP=to-your-server-ip`
+* change `ADB_INSTALL=yes` to auto install on your android tv device
 
 
 ## todolist
