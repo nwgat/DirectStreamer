@@ -12,6 +12,7 @@ why you say? many of the current options have horrible HDR compatablity issues
 *   **Miminalistic Interface**
     *   Only show a list of files sorted by latest
     *   Simplified Player UI to be as light as possible
+    *   simple Toast notification in the middle (can be turn off with toast=off in .nv)
     *   Web Interface at port 8282 with the ability to play files both in browser or on android tv
 *   **Enhanced HDR & Dolby Vision:** 
     *   Detect DoVi/HDR10 in media files and automaticly select correct decoder (bypasses android/amlogic)
