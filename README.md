@@ -11,7 +11,7 @@ why you say? many of the current options have horrible HDR compatablity issues
 *   **Direct Play Architecture:** Minimalistic Player UI with backend serving media files directly to the client.
 *   **Miminalistic Interface**
     *   Only show a list of files sorted by latest
-    *   Direct Play Backend
+    *   Simplified Player UI to be as light as possible
 *   **Enhanced HDR & Dolby Vision:** 
     *   Detect DoVi/HDR10 in media files and automaticly select correct decoder (bypasses android/amlogic)
     *   Disable Dovi 07.06 profiles and force them to HDR10 (fallback=yes)
@@ -55,6 +55,7 @@ on your server
 - [x] Web Interface for backend with playback/browse
 - [ ] fix wierd issue with playback on tv from webserver listview
 - [ ] fix hdr detection to include full profile names (dv07.06 etc) in docker logs
+- [ ] ability to tweak throttling buffer
 - [ ] audio transcoding on the backend to improve support on devices without certain codecs
 - [ ] Remember last position
 - [ ] OSD More Seeking options 5min/3min/30/15/10?
@@ -62,4 +63,4 @@ on your server
 - [x] OSD - convert toast to text overlay instead
 
 ## ❤ Made with these Projects
-Built with Alpine, Golang, Docker, ffmpeg, android sdk 
+Built with Alpine, Golang, Docker, ffmpeg, Android SDK, Gradle
