@@ -2,13 +2,14 @@
 
 DirectStreamer is a high-performance, containerized streaming solution designed for Android TV, focusing on direct-play playback with enhanced HDR/Dolby Vision support and automated deployment.
 
+why you say? many of the current options have horrible HDR compatablity issues
+
 ## ✨ Key Features
 
-*   **Direct Play Architecture:** Minimal overhead backend serving media files directly to the client.
+*   **Direct Play Architecture:** Minimalistic Player UI with backend serving media files directly to the client.
 *   **Miminalistic Interface**
     *   Only show a list of files sorted by latest
-    *   Minimalistic Player UI
-    *   Direct Play Backend     
+    *   Direct Play Backend
 *   **Enhanced HDR & Dolby Vision:** 
     *   Detect DoVi/HDR10 in media files and automaticly select correct decoder (bypasses amlogic)
     *   Disable Dovi 07.06 profiles and force them to HDR10
@@ -25,8 +26,13 @@ DirectStreamer is a high-performance, containerized streaming solution designed 
 
 ## Notes
 * Very much a work in progress
-* Mostly tested on my [Xiaomi TV Box S (3rd Gen) aka Twilight ]([url](https://www.androidtv-guide.com/streaming-gaming/xiaomi-tv-box-s-v3/))
 * Am not a coder, ive used Gemini AI but feel free to help improve it tho, there is a reason why ive released it under GPLv3
+
+## Tested Hardware
+* * Mostly tested on my [Xiaomi TV Box S (3rd Gen) aka Twilight ]([url](https://www.androidtv-guide.com/streaming-gaming/xiaomi-tv-box-s-v3/))
+ 
+
+
 
 ## 🚀 Getting Started
 
