@@ -50,18 +50,22 @@ on your server
 * if you have a LG OLED TV you can change `HDMI_CHECK_IP=192.168.1.122` to it
 
 
-## Todolist & Known Issues List
+## Todolist, Known Issues List
 - [x] release the code
 - [x] hope stability works out with high bitrate files
 - [x] Web Interface for backend with playback/browse
+- [x] Web Interface has custom url option and a menu now
 - [ ] fix wierd issue with playback on tv from webserver listview
 - [ ] fix hdr detection to include full profile names (dv07.06 etc) in docker logs
 - [ ] ability to tweak throttling buffer
 - [ ] audio transcoding on the backend to improve support on devices without certain codecs
 - [ ] Remember last position
 - [ ] OSD More Seeking options 5min/3min/30/15/10?
+- [ ] settings, adb, logcat and hdmi log options in web interface
 - [x] OSD - seeking (0:23:41/1:30:34)
 - [x] OSD - convert toast to text overlay instead
+
+x = fixed (i hope)
 
 ## ❤ Made with these Projects
 Built with Alpine, Golang, Docker, ffmpeg, Android SDK, Gradle
