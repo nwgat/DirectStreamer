@@ -1,0 +1,10 @@
+<svg width="500" height="200" viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#171717" rx="16"/>
+  <g transform="translate(50, 45)">
+    <path d="M0,10 L30,10 L50,100 L20,100 Z" fill="#EC4899"/>
+    <path d="M35,10 L65,10 L85,100 L55,100 Z" fill="#8B5CF6"/>
+    <path d="M70,10 L100,10 L120,100 L90,100 Z" fill="#3B82F6"/>
+    <polygon points="45,35 45,75 80,55" fill="#FFFFFF"/>
+  </g>
+  <text x="210" y="112" font-family="system-ui, sans-serif" font-size="35" font-weight="900" fill="#FFFFFF" letter-spacing="-0.5">DirectStreamer</text>
+</svg>
