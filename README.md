@@ -56,6 +56,7 @@ on your server
 - [x] hope stability works out with high bitrate files
 - [x] Web Interface for backend with playback/browse
 - [x] Web Interface has custom url option and a menu now
+- [ ] Proper search in Web interface (ctrl + f) works for the time being
 - [ ] fix wierd issue with playback on tv from webserver listview
 - [ ] fix hdr detection to include full profile names (dv07.06 etc) in docker logs
 - [ ] ability to tweak throttling buffer
