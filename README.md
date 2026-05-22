@@ -66,6 +66,7 @@ on your server
 - [ ] settings, adb, logcat and hdmi log options in web interface
 - [ ] Optimize the build and installer apk/aab
 - [ ] Improve Branding, icons, web interface colors/logo 
+- [ ] Hold the hdr mode when seeking 
 - [x] OSD - seeking (0:23:41/1:30:34)
 - [x] OSD - convert toast to text overlay instead
 
