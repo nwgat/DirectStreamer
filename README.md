@@ -1,3 +1,5 @@
+![Logo](logo.svg)
+
 # DirectStreamer
 
 DirectStreamer is a high-performance, containerized streaming solution designed for Android TV, focusing on direct-play playback with enhanced HDR/Dolby Vision support and automated deployment.
