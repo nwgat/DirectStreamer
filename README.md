@@ -13,12 +13,12 @@ why you say? many of the current options have horrible HDR compatablity issues
     *   Only show a list of files sorted by latest
     *   Direct Play Backend
 *   **Enhanced HDR & Dolby Vision:** 
-    *   Detect DoVi/HDR10 in media files and automaticly select correct decoder (bypasses amlogic)
-    *   Disable Dovi 07.06 profiles and force them to HDR10
+    *   Detect DoVi/HDR10 in media files and automaticly select correct decoder (bypasses android/amlogic)
+    *   Disable Dovi 07.06 profiles and force them to HDR10 (fallback=yes)
 *   **Smart Playback:**
     *   Throttled streaming to optimize network utilization.
-    *   Smart Seek functionality for smooth navigation. (, left/right dpad to seek)
-    *   Real-time subtitle and audio track cycling. (up dpad to cycle audio  track, down dpad to cycle subtitles)
+    *   Smart Seek functionality for smooth navigation. (left/right dpad to seek)
+    *   Real-time subtitle and audio track cycling. (up dpad to cycle audio track, down dpad to cycle subtitles)
 *   **Automated Deployment:** Seamless "One-Click" build and install process using Docker and ADB (Android Debug Bridge).
 *   **Debug Monitoring:**
     *   Automatic detection of HDR10, HLG, and various Dolby Vision profiles via `ffprobe` in docker logs
@@ -34,8 +34,6 @@ why you say? many of the current options have horrible HDR compatablity issues
 * * Mostly tested on my [Xiaomi TV Box S (3rd Gen) aka Twilight ]([url](https://www.androidtv-guide.com/streaming-gaming/xiaomi-tv-box-s-v3/))
  
 
-
-
 ## 🚀 Getting Started
 
 on your android tv device
@@ -48,7 +46,7 @@ on your server
 * change `TV_IP=192.168.1.239` to your android tv device
 * change `BACKEND_IP=192.168.1.2` to your docker host machine ip
 * change `ADB_INSTALL=yes` to auto install on your android tv device
-* if you have a LG OLED TV you can change `HDMI_CHECK_IP` to it
+* if you have a LG OLED TV you can change `HDMI_CHECK_IP=192.168.1.122` to it
 
 
 ## Todolist & Known Issues List
@@ -58,8 +56,8 @@ on your server
 - [ ] fix wierd issue with playback on tv from webserver listview
 - [ ] fix hdr detection to include full profile names (dv07.06 etc) in docker logs
 - [ ] audio transcoding on the backend to improve support on devices without certain codecs
-- [ ] More Seeking options 5min/3min/30/15/10?
 - [ ] Remember last position
+- [ ] OSD More Seeking options 5min/3min/30/15/10?
 - [x] OSD - seeking (0:23:41/1:30:34)
 - [x] OSD - convert toast to text overlay instead
 
