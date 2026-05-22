@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
@@ -30,7 +31,6 @@ type FileItem struct {
 	ModTime time.Time `json:"-"`        
 }
 
-// WebOSMessage represents the standard LG WebOS websocket envelope
 type WebOSMessage struct {
 	Type    string          `json:"type"`
 	ID      string          `json:"id,omitempty"`
@@ -38,7 +38,6 @@ type WebOSMessage struct {
 	Payload json.RawMessage `json:"payload,omitempty"`
 }
 
-// SettingsPayload represents the parsed settings from the TV
 type SettingsPayload struct {
 	Settings struct {
 		PictureMode string `json:"pictureMode"`
@@ -54,6 +53,133 @@ var (
 	rebuildTimer  *time.Timer
 	rebuildMutex  sync.Mutex
 )
+
+const indexHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DirectStreamer Web Dashboard</title>
+    <style>
+        body { font-family: sans-serif; background: #121212; color: #e0e0e0; margin: 0; padding: 20px; }
+        .nav-menu { text-align: center; margin-bottom: 25px; font-size: 1.1em; }
+        .nav-menu a { color: #007bff; text-decoration: none; margin: 0 15px; font-weight: bold; }
+        .nav-menu a:hover { text-decoration: underline; color: #0056b3; }
+        .nav-menu span { color: #555; }
+        
+        .content-section { max-width: 960px; margin: 0 auto; }
+        
+        .file-item { background: #242424; margin-bottom: 8px; padding: 8px 12px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+        .file-name { font-size: 0.95em; font-weight: bold; color: #fff; word-break: break-all; }
+        .hdr-tag { font-size: 0.7em; background: #444; padding: 2px 6px; border-radius: 12px; margin-left: 8px; color: #ddd; white-space: nowrap; }
+        .actions { display: flex; gap: 8px; flex-shrink: 0; }
+        
+        button { border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; transition: opacity 0.2s; font-size: 0.85em; }
+        button:hover { opacity: 0.8; }
+        .btn-browser { background: #007bff; color: white; }
+        .btn-tv { background: #28a745; color: white; }
+        
+        #play-url-section { display: none; text-align: center; background: #242424; padding: 40px 20px; border-radius: 8px; }
+        #play-url-input { width: 80%; padding: 12px; margin-bottom: 20px; border-radius: 4px; border: 1px solid #444; background: #121212; color: white; font-size: 1em; }
+        
+        #player-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; align-items: center; justify-content: center; flex-direction: column; }
+        #video-player { width: 90%; max-height: 80vh; outline: none; background: #000; }
+        #close-modal { margin-top: 20px; background: #dc3545; color: white; font-size: 1em; padding: 8px 24px; }
+    </style>
+</head>
+<body>
+    <div class="nav-menu">
+        <a href="#" onclick="switchTab('file-list')">filelist</a> <span>|</span>
+        <a href="#" onclick="switchTab('play-url-section')">play url</a> <span>|</span>
+        <a href="/download/DirectStreamer.apk">apk</a>
+    </div>
+
+    <div id="file-list" class="content-section">Loading files...</div>
+
+    <div id="play-url-section" class="content-section">
+        <input type="text" id="play-url-input" placeholder="Enter custom video URL (e.g., http://...)">
+        <br>
+        <button class="btn-browser" onclick="playInBrowser(document.getElementById('play-url-input').value)">▶ Browser</button>
+        <button class="btn-tv" onclick="playOnTV(document.getElementById('play-url-input').value)">📺 TV</button>
+    </div>
+
+    <div id="player-modal">
+        <video id="video-player" controls></video>
+        <button id="close-modal">Close Player</button>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            document.getElementById('file-list').style.display = 'none';
+            document.getElementById('play-url-section').style.display = 'none';
+            document.getElementById(tabId).style.display = 'block';
+        }
+
+        async function loadFiles() {
+            try {
+                const response = await fetch('/api/files');
+                const files = await response.json();
+                const list = document.getElementById('file-list');
+                list.innerHTML = '';
+                
+                if (files.length === 0) {
+                    list.innerHTML = '<div style="text-align:center;">No media files found.</div>';
+                    return;
+                }
+
+                files.forEach(file => {
+                    const item = document.createElement('div');
+                    item.className = 'file-item';
+                    item.innerHTML = 
+                        '<div style="flex-grow:1; padding-right: 15px;">' +
+                            '<div class="file-name">' + file.name + ' <span class="hdr-tag">' + file.hdr_type + '</span></div>' +
+                        '</div>' +
+                        '<div class="actions">' +
+                            '<button class="btn-browser" onclick="playInBrowser(\'' + file.url + '\')">▶ Browser</button>' +
+                            '<button class="btn-tv" onclick="playOnTV(\'' + file.url + '\')">📺 TV</button>' +
+                        '</div>';
+                    list.appendChild(item);
+                });
+            } catch (e) {
+                document.getElementById('file-list').innerText = 'Failed to load media files.';
+            }
+        }
+
+        function playInBrowser(url) {
+            if (!url) return;
+            const modal = document.getElementById('player-modal');
+            const player = document.getElementById('video-player');
+            player.src = url;
+            modal.style.display = 'flex';
+            player.play();
+        }
+
+        async function playOnTV(url) {
+            if (!url) return;
+            try {
+                const res = await fetch('/api/play_on_tv?url=' + encodeURIComponent(url));
+                if (!res.ok) {
+                    alert('Failed to send to TV. Ensure TV is on and ADB is connected.');
+                }
+            } catch(e) {
+                alert('Network error while communicating with backend.');
+            }
+        }
+
+        document.getElementById('close-modal').addEventListener('click', () => {
+            const modal = document.getElementById('player-modal');
+            const player = document.getElementById('video-player');
+            player.pause();
+            player.src = '';
+            modal.style.display = 'none';
+        });
+
+        // Initialize display
+        switchTab('file-list');
+        loadFiles();
+    </script>
+</body>
+</html>`
 
 func getHDRType(filePath string) string {
 	cmd := exec.Command("ffprobe", 
@@ -228,14 +354,16 @@ func monitorMediaDirectory() {
 
 func startHDMICheck() {
 	if getEnv("HDMI_CHECK", "no") != "yes" {
+		log.Println("ℹ️ HDMI_CHECK is disabled in environment.")
 		return
 	}
 	tvIP := getEnv("HDMI_CHECK_IP", "")
 	if tvIP == "" {
-		log.Println("HDMI_CHECK enabled but HDMI_CHECK_IP is not set, skipping...")
+		log.Println("⚠️ HDMI_CHECK enabled but HDMI_CHECK_IP is not set, skipping...")
 		return
 	}
 
+	log.Printf("🚀 Starting WebOS HDMI Monitor targeting IP: %s", tvIP)
 	go func() {
 		for {
 			runLGWebOSMonitor(tvIP)
@@ -253,9 +381,18 @@ func runLGWebOSMonitor(tvIP string) {
 
 	c, _, err := dialer.Dial(u.String(), nil)
 	if err != nil {
+		log.Printf("❌ WebOS Connection Failed to %s: %v (Retrying in 10s...)", tvIP, err)
 		return 
 	}
-	defer c.Close()
+	
+	log.Printf("✅ Connected to WebOS WebSocket at %s", tvIP)
+	
+	// Create context to signal the background ticker loop to exit safely upon websocket breakdown
+	ctx, cancel := context.WithCancel(context.Background())
+	defer func() {
+		cancel()
+		c.Close()
+	}()
 
 	registerPayloadMap := map[string]interface{}{
 		"forcePairing": false,
@@ -277,49 +414,65 @@ func runLGWebOSMonitor(tvIP string) {
 		Payload: payloadBytes,
 	}
 
-	if err := c.WriteJSON(registerMsg); err != nil {
+	writeMutex := &sync.Mutex{}
+
+	writeMutex.Lock()
+	err = c.WriteJSON(registerMsg)
+	writeMutex.Unlock()
+	
+	if err != nil {
+		log.Printf("❌ WebOS Registration Write Error: %v", err)
 		return
 	}
+	log.Println("📡 Sent pairing/registration payload to TV...")
 
 	var lastFormat string
-	writeMutex := &sync.Mutex{}
 
 	for {
 		var msg WebOSMessage
 		if err := c.ReadJSON(&msg); err != nil {
+			log.Printf("⚠️ WebOS Socket Disconnected or Read Error: %v", err)
 			return 
 		}
 
 		if msg.ID == "register_0" && msg.Type == "registered" {
+			log.Println("🔓 WebOS Registration SUCCESS! Listening for picture settings...")
+			
 			var responsePayload map[string]interface{}
 			json.Unmarshal(msg.Payload, &responsePayload)
 			if key, ok := responsePayload["client-key"].(string); ok {
 				os.WriteFile(keyFile, []byte(key), 0644)
 			}
 
-			go func() {
+			// Background loop tracking picture formats
+			go func(ctx context.Context) {
 				ticker := time.NewTicker(3 * time.Second)
 				defer ticker.Stop()
-				for range ticker.C {
-					reqMsg := WebOSMessage{
-						Type: "request",
-						ID:   "req_settings",
-						URI:  "ssap://settings/getSystemSettings",
-						Payload: json.RawMessage(`{
-							"category": "picture",
-							"keys": ["pictureMode"]
-						}`),
-					}
-					
-					writeMutex.Lock()
-					err := c.WriteJSON(reqMsg)
-					writeMutex.Unlock()
-					
-					if err != nil {
+				for {
+					select {
+					case <-ctx.Done():
 						return
+					case <-ticker.C:
+						reqMsg := WebOSMessage{
+							Type: "request",
+							ID:   "req_settings",
+							URI:  "ssap://settings/getSystemSettings",
+							Payload: json.RawMessage(`{
+								"category": "picture",
+								"keys": ["pictureMode"]
+							}`),
+						}
+						
+						writeMutex.Lock()
+						err := c.WriteJSON(reqMsg)
+						writeMutex.Unlock()
+						
+						if err != nil {
+							return
+						}
 					}
 				}
-			}()
+			}(ctx)
 			
 			firstReq := WebOSMessage{
 				Type: "request",
@@ -335,7 +488,7 @@ func runLGWebOSMonitor(tvIP string) {
 			writeMutex.Unlock()
 
 		} else if msg.ID == "register_0" && msg.Type == "error" {
-			log.Println("LG TV Registration error. Please accept the prompt on the TV.")
+			log.Println("❌ LG TV Registration rejected or timed out. Please accept the prompt on the TV.")
 			return
 		}
 
@@ -419,6 +572,16 @@ func main() {
 	go monitorMediaDirectory()
 	go startHDMICheck()
 
+	// Web Dashboard Handler
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/" {
+			http.NotFound(w, r)
+			return
+		}
+		w.Header().Set("Content-Type", "text/html")
+		w.Write([]byte(indexHTML))
+	})
+
 	http.HandleFunc("/api/files", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Content-Type", "application/json")
@@ -430,6 +593,33 @@ func main() {
 			w.Write([]byte("[]"))
 		}
 		cacheMutex.RUnlock()
+	})
+
+	// TV Play API endpoint - uses ADB to send Intent directly to the TV App
+	http.HandleFunc("/api/play_on_tv", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		targetUrl := r.URL.Query().Get("url")
+		if targetUrl == "" {
+			http.Error(w, "Missing URL", http.StatusBadRequest)
+			return
+		}
+		
+		tvIP := getEnv("TV_IP", "")
+		if tvIP == "" || tvIP == "0.0.0.0" {
+			http.Error(w, "TV_IP not configured", http.StatusInternalServerError)
+			return
+		}
+
+		cmd := exec.Command("adb", "-s", tvIP+":5555", "shell", "am", "start", "-n", "com.example.tvstream/.PlayerActivity", "-e", "URL", targetUrl)
+		if err := cmd.Run(); err != nil {
+			log.Printf("ADB Error casting to TV: %v", err)
+			http.Error(w, fmt.Sprintf("ADB Error: %v", err), http.StatusInternalServerError)
+			return
+		}
+		
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte(`{"status":"success"}`))
 	})
 
 	http.HandleFunc("/stream/", func(w http.ResponseWriter, r *http.Request) {

@@ -23,6 +23,9 @@
 			</intent-filter>
 		</activity>
 		
-		<activity android:name=".PlayerActivity" />
+		<activity android:name=".PlayerActivity"
+			android:launchMode="singleTask"
+			android:exported="true">
+		</activity>
 	</application>
 </manifest>

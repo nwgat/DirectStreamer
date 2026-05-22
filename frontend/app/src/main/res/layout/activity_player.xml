@@ -12,7 +12,6 @@
 		app:surface_type="surface_view"
 		app:use_controller="false" />
 
-	<!-- Dimmed medium-gray replaces hazardous pure white to optimize OLED longevity -->
 	<TextView
 		android:id="@+id/osd_toast"
 		android:layout_width="wrap_content"

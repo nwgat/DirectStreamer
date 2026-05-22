@@ -7,7 +7,7 @@ services:
         - BACKEND_IP=${BACKEND_IP}
         - BACKEND_PORT=${BACKEND_PORT}
         - SHOW_TOASTS=${SHOW_TOASTS}
-        - NO_FALLBACK=${NO_FALLBACK}
+        - FALLBACK=${FALLBACK}
     container_name: direct-streamer
     ports:
       - "${BACKEND_IP}:${BACKEND_PORT}:${BACKEND_PORT}"

@@ -20,11 +20,11 @@ android {
 		val backendIp = System.getenv("BACKEND_IP") ?: "127.0.0.1"
 		val backendPort = System.getenv("BACKEND_PORT") ?: "8282"
 		val showToasts = System.getenv("SHOW_TOASTS") ?: "yes"
-		val noFallback = System.getenv("NO_FALLBACK") ?: "no"
+		val fallback = System.getenv("FALLBACK") ?: "yes"
 		
 		buildConfigField("String", "BACKEND_URL", "\"http://${backendIp}:${backendPort}\"")
 		buildConfigField("boolean", "SHOW_TOASTS", if (showToasts == "yes") "true" else "false")
-		buildConfigField("boolean", "NO_FALLBACK", if (noFallback == "yes") "true" else "false")
+		buildConfigField("boolean", "FALLBACK", if (fallback == "yes") "true" else "false")
 	}
 
 	buildTypes {

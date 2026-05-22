@@ -14,11 +14,11 @@ WORKDIR /android
 ARG BACKEND_IP
 ARG BACKEND_PORT
 ARG SHOW_TOASTS
-ARG NO_FALLBACK
+ARG FALLBACK
 ENV BACKEND_IP=${BACKEND_IP}
 ENV BACKEND_PORT=${BACKEND_PORT}
 ENV SHOW_TOASTS=${SHOW_TOASTS}
-ENV NO_FALLBACK=${NO_FALLBACK}
+ENV FALLBACK=${FALLBACK}
 
 RUN apt-get update && apt-get install -y wget unzip && rm -rf /var/lib/apt/lists/*
 RUN wget -q https://services.gradle.org/distributions/gradle-8.5-bin.zip && \

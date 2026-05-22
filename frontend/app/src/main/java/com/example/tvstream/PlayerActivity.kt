@@ -1,5 +1,6 @@
 package com.example.tvstream
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -112,6 +113,19 @@ class PlayerActivity : AppCompatActivity() {
 		videoUrl = intent.getStringExtra("URL") ?: return
 	}
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        val newUrl = intent?.getStringExtra("URL")
+        if (newUrl != null && newUrl != videoUrl) {
+            videoUrl = newUrl
+            releasePlayer()
+            watchdogHandler.postDelayed({
+                initializePlayer(newUrl, 0L)
+            }, DECODER_FLUSH_STARTUP_DELAY_MS)
+        }
+    }
+
 	override fun onStart() {
 		super.onStart()
 		watchdogHandler.postDelayed({
@@ -176,8 +190,7 @@ class PlayerActivity : AppCompatActivity() {
 						requiresSecureDecoder: Boolean
 					): MutableList<MediaCodecInfo> {
 						val codecs = format.codecs?.lowercase() ?: ""
-						// Blacklist DV Profile 7 (dvhe.07 or dvh1.07) to fallback to HDR10 HEVC decoding
-						if (codecs.contains("dvhe.07") || codecs.contains("dvh1.07")) {
+						if (enableDecoderFallback && (codecs.contains("dvhe.07") || codecs.contains("dvh1.07"))) {
 							return MediaCodecSelector.DEFAULT.getDecoderInfos(
 								MimeTypes.VIDEO_H265,
 								requiresSecureDecoder,
@@ -192,7 +205,7 @@ class PlayerActivity : AppCompatActivity() {
 		}
 		
 		renderersFactory.setMediaCodecSelector(AmlogicDolbyVisionCodecSelector())
-		renderersFactory.setEnableDecoderFallback(!BuildConfig.NO_FALLBACK)
+		renderersFactory.setEnableDecoderFallback(BuildConfig.FALLBACK)
 
 		val trackSelector = DefaultTrackSelector(this)
 
@@ -368,6 +381,21 @@ class PlayerActivity : AppCompatActivity() {
 		if (event == null) return super.onKeyDown(keyCode, event)
 		
 		when (keyCode) {
+			KeyEvent.KEYCODE_BACK -> {
+				if (event.repeatCount == 0) {
+					// 1. Instantly stop decoding and destroy the video surface hardware link
+					releasePlayer()
+					
+					// 2. Give the Amlogic SoC 150 milliseconds to successfully flush the
+					// BT.2020 color space lock and return the display pipeline to BT.709 SDR.
+					// If we kill the Activity immediately, the SDR file list menu will render inside
+					// the stuck HDR bounds, causing washed-out/pink color bugs.
+					Handler(Looper.getMainLooper()).postDelayed({
+						finish()
+					}, 150)
+				}
+				return true
+			}
 			KeyEvent.KEYCODE_DPAD_LEFT, KeyEvent.KEYCODE_MEDIA_REWIND -> {
 				player?.let {
 					val duration = it.duration
