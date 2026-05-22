@@ -1,0 +1,30 @@
+services:
+  stream-stack:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - BACKEND_IP=${BACKEND_IP}
+        - BACKEND_PORT=${BACKEND_PORT}
+        - SHOW_TOASTS=${SHOW_TOASTS}
+        - NO_FALLBACK=${NO_FALLBACK}
+    container_name: direct-streamer
+    ports:
+      - "${BACKEND_IP}:${BACKEND_PORT}:${BACKEND_PORT}"
+    volumes:
+      - ${MEDIA_HOST_PATH}:/media:ro
+      - ./ds-data:/ds-data
+      - ./ds-data:/root/.android 
+    environment:
+      - PORT=${BACKEND_PORT}
+      - BACKEND_IP=${BACKEND_IP}
+      - MEDIA_DIR=/media
+      - TV_IP=${TV_IP}
+      - ADB_INSTALL=${ADB_INSTALL}
+      - LOGCAT=${LOGCAT}
+      - LOGCAT_MEDIA=${LOGCAT_MEDIA}
+      - LOGCAT_HDMI=${LOGCAT_HDMI}
+      - LOGCAT_FULL=${LOGCAT_FULL}
+      - HDMI_CHECK=${HDMI_CHECK}
+      - HDMI_CHECK_IP=${HDMI_CHECK_IP}
+    restart: unless-stopped
