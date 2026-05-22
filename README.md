@@ -40,18 +40,20 @@ on your android tv device
 1. Enable ADB or MiTV adb Debugging under Developer Options, it shows up after you press about 7 times on Android TV Build in About under Settings > System > then it should show up under Settings > System or Quick Settings Menu  
 
 on your server
-* `apt-get install docker.io docker-compose-v2` (Ubuntu)
+* `apt-get install docker.io docker-compose-v2 nano` (Ubuntu)
 * `git clone https://github.com/nwgat/DirectStreamer && cd DirectStreamer`
 * `nano .env`
 * change `TV_IP=192.168.1.239` to your android tv device
 * change `BACKEND_IP=192.168.1.2` to your docker host machine ip
 * change `ADB_INSTALL=yes` to auto install on your android tv device
+* if you have a LG OLED TV you can change `HDMI_CHECK_IP` to it
 
 
 ## Todolist & Known Issues List
-- [ ] release the code
+- [x] release the code
 - [x] hope stability works out with high bitrate files
-- [ ] Web Interface for backend with playback/browse
+- [x] Web Interface for backend with playback/browse
+- [ ] fix wierd issue with playback on tv from webserver listview
 - [ ] fix hdr detection to include full profile names (dv07.06 etc) in docker logs
 - [ ] audio transcoding on the backend to improve support on devices without certain codecs
 - [ ] More Seeking options 5min/3min/30/15/10?
