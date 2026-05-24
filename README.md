@@ -12,7 +12,9 @@ why you say? many of the current options have horrible HDR compatablity issues
 *   **Miminalistic Interface**
     *   Only show a list of files sorted by latest
     *   Simplified Player UI to be as light as possible
-    * Toast notification in the middle (can be turn off in .env for a distraction less movie watching experience)
+    *   built on the fly and is about ~7MB in size
+    * Toast notification in the middle (can be turn off in webui settings for a distraction less movie watching experience)
+    **WebUI for browsing, playback, settings, custom url playback
     *   Web Interface at port 8282 with the ability to play files both in browser or on android tv
 *   **Enhanced HDR & Dolby Vision:** 
     *   Detect DoVi/HDR10 in media files and automaticly select correct decoder (bypasses android/amlogic)
