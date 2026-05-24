@@ -65,7 +65,7 @@ on your server
 - [ ] audio transcoding on the backend to improve support on devices without certain codecs
 - [ ] Remember last position
 - [ ] OSD More Seeking options 5min/3min/30/15/10?
-- [ ] settings, adb, logcat and hdmi log options in web interface
+- [x] Web settings, adb, logcat and hdmi log options in web interface
 - [ ] Optimize the build and installer apk/aab
 - [ ] Improve Branding, icons, web interface colors/logo 
 - [ ] Hold the hdr mode when seeking 
