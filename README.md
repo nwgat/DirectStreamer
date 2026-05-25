@@ -54,23 +54,38 @@ on your server
 
 
 ## Todolist, Known Issues List
+
+All
 - [x] release the code
 - [x] hope stability works out with high bitrate files
-- [x] Web Interface for backend with playback/browse
+
+WebUI
+
+- [x] Web Interface has backend with playback/browse
 - [x] Web Interface has custom url option and a menu now
-- [ ] Proper search in Web interface (ctrl + f) works for the time being
-- [ ] fix wierd issue with playback on tv from webserver listview
-- [ ] fix hdr detection to include full profile names (dv07.06 etc) in docker logs
-- [ ] ability to tweak throttling buffer
-- [ ] audio transcoding on the backend to improve support on devices without certain codecs
-- [ ] Remember last position
-- [ ] OSD More Seeking options 5min/3min/30/15/10?
 - [x] Web settings, adb, logcat and hdmi log options in web interface
-- [ ] Optimize the build and installer apk/aab
-- [ ] Improve Branding, icons, web interface colors/logo 
-- [ ] Hold the hdr mode when seeking 
+- [x] Web interface has viewable logs now
+- [ ] Proper search in Web interface (ctrl + f) works for the time being
+- [ ] Ability to set subtitle brightness
+
+Backend
+
+- [ ] audio transcoding on the backend to improve support on devices without certain codecs
+- [ ] ability to tweak throttling buffer
+            
+Android TV App 
+
 - [x] OSD - seeking (0:23:41/1:30:34)
 - [x] OSD - convert toast to text overlay instead
+- [x] External Audio and subtitle support (they need to be .srt .ass for subs, and .eac3 .ac3 .flac* for audio)
+- [ ] fix wierd issue with playback on tv from webserver listview
+- [ ] fix hdr detection to include full profile names (dv07.06 etc) in docker logs
+- [ ] Remember last position
+- [ ] OSD More Seeking options 5min/3min/30/15/10?
+- [ ] Optimize/Minimize the build and installer apk/aab
+- [ ] Improve Branding, icons, web interface colors/logo 
+- [ ] Hold the hdr mode when seeking
+      
 
 x = fixed (i hope)
 
