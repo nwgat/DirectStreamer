@@ -9,21 +9,27 @@ why you say? many of the current options have horrible HDR compatablity issues
 ## ✨ Key Features
 
 *   **Direct Play Architecture:** Minimalistic Player UI with backend serving media files directly to the client.
+
 *   **Miminalistic Interface**
     *   Only show a list of files sorted by latest
     *   Simplified Player UI to be as light as possible
     *   APK built on the fly and is about ~7MB in size
     * Toast notification in the middle (can be turn off in webui settings for a distraction less movie watching experience)
+
 *   **WebUI** for browsing, playback, settings, custom url playback
     *   Web Interface at port 8282 with the ability to play files both in browser or on android tv
+
 *   **Enhanced HDR & Dolby Vision:** 
     *   Detect DoVi/HDR10 in media files and automaticly select correct decoder (bypasses android/amlogic)
     *   Disable Dovi 07.06 profiles and force them to HDR10 (fallback=yes)
+
 *   **Smart Playback:**
     *   Throttled streaming to optimize network utilization.
     *   Smart Seek functionality for smooth navigation. (left/right dpad to seek)
     *   Real-time subtitle and audio track cycling. (up dpad to cycle audio track, down dpad to cycle subtitles)
+
 *   **Automated Deployment:** Seamless "One-Click" build and install process using Docker and ADB (Android Debug Bridge).
+
 *   **Debug Monitoring:**
     *   Automatic detection of HDR10, HLG, and various Dolby Vision profiles via `ffprobe` in docker logs
     *   Built-in monitoring for LG OLED TVs to track HDMI input formats and signal changes in real-time in docker logs
@@ -36,7 +42,7 @@ why you say? many of the current options have horrible HDR compatablity issues
 
 ## Tested Hardware
 * * Mostly tested on my [Xiaomi TV Box S (3rd Gen) aka Twilight ]([url](https://www.androidtv-guide.com/streaming-gaming/xiaomi-tv-box-s-v3/))
- 
+should hopefully work on other Amlogic devices. as its currently its hardcoded to amlogic decoders 
 
 ## 🚀 Getting Started
 
@@ -46,18 +52,17 @@ on your android tv device
 on your server
 * `apt-get install docker.io docker-compose-v2 nano` (Ubuntu)
 * `git clone https://github.com/nwgat/DirectStreamer && cd DirectStreamer`
-* `nano .env`
-* change `TV_IP=192.168.1.239` to your android tv device
-* change `BACKEND_IP=192.168.1.2` to your docker host machine ip
-* change `ADB_INSTALL=yes` to auto install on your android tv device
-* if you have a LG OLED TV you can change `HDMI_CHECK_IP=192.168.1.122` to it
-
+* `nano docker-compose.yaml` (change BACKEND_IP to your server)
+* `docker compose up -d`
+*  follow link to webui
 
 ## Todolist, Known Issues List
 
 All
 - [x] release the code
 - [x] hope stability works out with high bitrate files
+- [x] use config.json file
+
 
 WebUI
 
@@ -72,6 +77,7 @@ Backend
 
 - [ ] audio transcoding on the backend to improve support on devices without certain codecs
 - [ ] ability to tweak throttling buffer
+- [ ] restart supervisor task instead of restarting container for adb logcat stuff
             
 Android TV App 
 
