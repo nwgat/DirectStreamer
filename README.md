@@ -52,7 +52,8 @@ on your android tv device
 on your server
 * `apt-get install docker.io docker-compose-v2 nano` (Ubuntu)
 * `git clone https://github.com/nwgat/DirectStreamer && cd DirectStreamer`
-* `nano docker-compose.yaml` (change BACKEND_IP to your server)
+* `nano .env` (change BACKEND_IP to your server)
+* `nano ds-store/config.json` change to your IPs
 * `docker compose up -d`
 *  follow link to webui
 
