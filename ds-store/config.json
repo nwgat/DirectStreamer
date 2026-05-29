@@ -1,0 +1,15 @@
+{
+  "tv_ip": "192.168.1.239",
+  "adb_install": "yes",
+  "logcat": "no",
+  "logcat_media": "no",
+  "logcat_hdmi": "no",
+  "logcat_full": "no",
+  "show_toasts": "yes",
+  "fallback": "yes",
+  "dvforce": "yes",
+  "subtitles": "off",
+  "hdmi_check": "yes",
+  "hdmi_check_ip": "192.168.1.10",
+  "hide_folders": ""
+}
