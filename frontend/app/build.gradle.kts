@@ -3,7 +3,7 @@ plugins {
 	id("org.jetbrains.kotlin.android")
 }
 android {
-	namespace = "com.example.tvstream"
+	namespace = "ninja.nwgat.directstreamer"
 	compileSdk = 36
 
 	buildFeatures {
@@ -11,7 +11,7 @@ android {
 	}
 
 	defaultConfig {
-		applicationId = "com.example.tvstream"
+		applicationId = "ninja.nwgat.directstreamer"
 		minSdk = 26
 		targetSdk = 36
 		versionCode = 1
@@ -19,18 +19,17 @@ android {
 
 		val backendIp = System.getenv("BACKEND_IP") ?: "127.0.0.1"
 		val backendPort = System.getenv("BACKEND_PORT") ?: "8282"
-		val showToasts = System.getenv("SHOW_TOASTS") ?: "yes"
-		val fallback = System.getenv("FALLBACK") ?: "yes"
 		
 		buildConfigField("String", "BACKEND_URL", "\"http://${backendIp}:${backendPort}\"")
-		buildConfigField("boolean", "SHOW_TOASTS", if (showToasts == "yes") "true" else "false")
-		buildConfigField("boolean", "FALLBACK", if (fallback == "yes") "true" else "false")
 	}
 
 	buildTypes {
 		release {
-			isMinifyEnabled = false
+			isMinifyEnabled = true
+			isShrinkResources = true
+
 			proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("debug")
 		}
 	}
 	compileOptions {

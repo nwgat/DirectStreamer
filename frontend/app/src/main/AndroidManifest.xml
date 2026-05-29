@@ -1,7 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.example.tvstream">
+	package="ninja.nwgat.directstreamer">
 	<uses-permission android:name="android.permission.INTERNET" />
-
 	<uses-feature android:name="android.software.leanback" android:required="true" />
 	<uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 
@@ -9,6 +8,9 @@
 		android:allowBackup="true"
 		android:largeHeap="true"
 		android:label="Direct Streamer"
+        android:icon="@drawable/icon"
+        android:banner="@drawable/banner"
+        android:logo="@drawable/banner"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme"
 		android:usesCleartextTraffic="true">
@@ -22,7 +24,6 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		
 		<activity android:name=".PlayerActivity"
 			android:launchMode="singleTask"
 			android:exported="true">
